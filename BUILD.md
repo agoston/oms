@@ -16,9 +16,14 @@ cd oms
 ```
 
 ### 2. Set Up Local Properties
-Create `local.properties` in the project root:
+Create `local.properties` in the project root (see `local.properties.example`):
 ```properties
 sdk.dir=/path/to/android/sdk
+```
+
+Use JDK 17 or 21 for Gradle. If your default `java` is newer (for example Java 26), set `JAVA_HOME` before building:
+```bash
+export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
 ```
 
 ### 3. Install Dependencies

@@ -4,6 +4,8 @@ import com.example.oms.feature.template.model.Template
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 
 /**
@@ -24,7 +26,7 @@ class FakeTemplateRepository : TemplateRepository {
         _templates.update { currentList ->
             val index = currentList.indexOfFirst { it.id == template.id }
             if (index >= 0) {
-                currentList.also { it[index] = template }
+                currentList.toMutableList().apply { this[index] = template }
             } else {
                 currentList + template
             }

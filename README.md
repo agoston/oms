@@ -1,38 +1,49 @@
-# OMS (One-Mail Snap)
+# OMS — One-Mail Snap
 
-A simple Android application that allows users to take a photo and send it via email with a predefined template.
+Android app: capture a photo, pick an email template, send via the system email client.
 
-## Overview
+**This project is maintained by AI agents.** Start here, then follow links — do not read the whole tree at once.
 
-OMS emphasizes clean code, modern Android best practices and above all,
-modularity to enable AI agent collaboration.
+## Quick start
 
-## Features
+```bash
+# Requires system Gradle (9.5+) and JDK 17+. Do NOT add gradlew.
+export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64   # example; use JDK 17+ on your machine
+gradle assembleDebug
+gradle test
+```
 
-- Take a photo using the device camera
-- Select a predefined, user-configurable email template
-- Send the photo as an attachment via the default email app
-- Receive visual/audible feedback upon successful sending
+If the build fails with `HasConvention` or plugin errors, **bump versions in `gradle/libs.versions.toml`** — do not add Gradle Wrapper or downgrade Gradle.
 
-## Architecture
+## Documentation map
 
-- **Modularity**: Clear separation of concerns
-- **Modern Standards**: Jetpack Compose, Material 3, Coroutines, Hilt
-- **Module Structure**:
-  - `app/`: Application module (navigation, DI, resources)
-  - `core/`: Shared utilities, constants, base classes
-  - `feature/`: Camera, template, email functionality
-  - `data/`: Data layer (repositories, local/remote sources)
-  - `di/`: Dependency injection modules
+| Read first | Purpose |
+|------------|---------|
+| [AGENTS.md](AGENTS.md) | Rules for agents: build, Gradle, scope, pitfalls |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Module layout, dependency rules, minimal manifest |
+| [docs/DESIGN.md](docs/DESIGN.md) | Product flows, data models, v1 checklist |
+| [docs/MODULES.md](docs/MODULES.md) | Index of per-module README files |
 
-## Building the App
+## Module index
 
-Run `gradle build`.
+| Module | README |
+|--------|--------|
+| `:app` | [app/README.md](app/README.md) |
+| `:core` | [core/README.md](core/README.md) |
+| `:feature:camera` | [feature/camera/README.md](feature/camera/README.md) |
+| `:feature:template` | [feature/template/README.md](feature/template/README.md) |
+| `:feature:email` | [feature/email/README.md](feature/email/README.md) |
+| `:data:local` | [data/local/README.md](data/local/README.md) |
+| `:data:remote` | [data/remote/README.md](data/remote/README.md) |
 
-## Testing
+## Stack (2026)
 
-Use gradle.
+- **UI:** Jetpack Compose, Material 3, single-Activity, Navigation Compose
+- **Architecture:** UDF, ViewModel, Flow
+- **DI:** Hilt (KSP), modules colocated per feature — no standalone `:di` module
+- **Build:** AGP 9.x + system Gradle 9.5+, version catalog in `gradle/libs.versions.toml`
+- **Storage (planned):** Proto DataStore in `:data:local`
 
 ## License
 
-[Apache License 2.0](LICENSE)
+Apache License 2.0

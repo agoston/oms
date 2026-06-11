@@ -1,0 +1,18 @@
+# Gradle
+.gradle/
+build/
+**/build/
+local.properties
+
+# Android Studio
+.idea/
+*.iml
+.cxx/
+
+# OS
+.DS_Store
+
+# Do NOT commit Gradle Wrapper (project uses system Gradle)
+gradlew
+gradlew.bat
+gradle/wrapper/

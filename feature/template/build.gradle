@@ -1,11 +1,12 @@
 plugins {
     alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
 }
 
 android {
-    namespace = "com.example.oms.data.local"
+    namespace = "com.example.oms.feature.template"
     compileSdk = libs.versions.compile.sdk.get().toInteger()
 
     defaultConfig {
@@ -16,15 +17,29 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
     implementation project(":core")
 
-    implementation libs.datastore.preferences
+    implementation platform(libs.compose.bom)
+    implementation libs.compose.ui
+    implementation libs.compose.material3
+    implementation libs.lifecycle.viewmodel.ktx
+    implementation libs.lifecycle.viewmodel.compose
     implementation libs.coroutines.android
     implementation libs.coroutines.core
 
     implementation libs.hilt.android
     ksp libs.hilt.compiler
+
+    testImplementation libs.junit
+    testImplementation libs.junit.jupiter.api
+    testRuntimeOnly libs.junit.jupiter.engine
+    testImplementation libs.mockk
+    testImplementation libs.coroutines.test
 }

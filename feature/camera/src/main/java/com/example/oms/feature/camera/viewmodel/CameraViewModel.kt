@@ -2,10 +2,11 @@ package com.example.oms.feature.camera.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.oms.core.util.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,11 +25,7 @@ class CameraViewModel @Inject constructor() : ViewModel() {
         viewModelScope.launch {
             _uiState.update { it.copy(isCapturing = true) }
             // Simulate camera capture delay
-            try {
-                Thread.sleep(1000)
-            } catch (e: InterruptedException) {
-                Thread.currentThread().interrupt()
-            }
+            delay(500)
             // In a real implementation, we would use CameraX or Activity Result API
             // For now, we simulate a captured image URI
             val fakeImageUri = "content://fake/image/uri"

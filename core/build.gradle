@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.oms.data.remote"
+    namespace = "com.example.oms.core"
     compileSdk = libs.versions.compile.sdk.get().toInteger()
 
     defaultConfig {
@@ -17,5 +17,5 @@ android {
 }
 
 dependencies {
-    implementation project(":core")
+    implementation libs.coroutines.core
 }

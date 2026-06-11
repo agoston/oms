@@ -1,9 +1,11 @@
 plugins {
     alias(libs.plugins.android.library)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
-    namespace = "com.example.oms.data.remote"
+    namespace = "com.example.oms.feature.email"
     compileSdk = libs.versions.compile.sdk.get().toInteger()
 
     defaultConfig {
@@ -18,4 +20,7 @@ android {
 
 dependencies {
     implementation project(":core")
+
+    implementation libs.hilt.android
+    ksp libs.hilt.compiler
 }

@@ -1,91 +1,78 @@
 plugins {
-    id 'com.android.application' version '8.5.0'
-    id 'org.jetbrains.kotlin.android' version '1.9.0'
-    id 'com.google.dagger.hilt.android' version '2.51'
-    id 'org.jetbrains.kotlin.kapt' version '1.9.0'
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
-    compileSdk = 34
     namespace = "com.example.oms"
+    compileSdk = libs.versions.compile.sdk.get().toInteger()
 
     defaultConfig {
-        applicationId "com.example.oms"
-        minSdk = 21
-        targetSdk = 34
-        versionCode 1
-        versionName "1.0"
+        applicationId = "com.example.oms"
+        minSdk = libs.versions.min.sdk.get().toInteger()
+        targetSdk = libs.versions.target.sdk.get().toInteger()
+        versionCode = 1
+        versionName = "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            minifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
+
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
+
     buildFeatures {
-        compose true
+        compose = true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion "2024.05.00"
-    }
-    packagingOptions {
+
+    packaging {
         resources {
-            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
 }
 
 dependencies {
-    implementation project(':core')
-    implementation project(':feature:camera')
-    implementation project(':feature:template')
-    implementation project(':feature:email')
-    implementation project(':data:local')
-    implementation project(':data:remote')
+    implementation project(":core")
+    implementation project(":feature:camera")
+    implementation project(":feature:template")
+    implementation project(":feature:email")
+    implementation project(":data:local")
+    implementation project(":data:remote")
 
-    // Compose
-    implementation "androidx.activity:activity-compose:1.8.2"
-    implementation "androidx.compose.ui:ui:2024.05.00"
-    implementation "androidx.compose.material3:material3:2024.05.00"
-    implementation "androidx.compose.ui:ui-tooling-preview:2024.05.00"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.7.0"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0"
-    implementation "androidx.activity:activity-ktx:1.8.2"
+    implementation platform(libs.compose.bom)
+    implementation libs.compose.ui
+    implementation libs.compose.ui.tooling.preview
+    implementation libs.compose.material3
+    implementation libs.activity.compose
+    implementation libs.activity.ktx
+    implementation libs.lifecycle.runtime.ktx
+    implementation libs.navigation.compose
+    implementation libs.coroutines.android
+    implementation libs.coroutines.core
 
-    // Hilt
-    implementation "com.google.dagger:hilt-android:2.51"
-    kapt "com.google.dagger:hilt-compiler:2.51"
-    implementation "androidx.hilt:hilt-navigation-compose:1.2.0"
+    implementation libs.hilt.android
+    ksp libs.hilt.compiler
+    implementation libs.hilt.navigation.compose
 
-    // Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
-
-    // DataStore
-    implementation "androidx.datastore:datastore-preferences:1.1.1"
-
-    // Testing
-    testImplementation "junit:junit:4.13.2"
-    testImplementation "org.junit.jupiter:jupiter-api:5.10.0"
-    testRuntimeOnly "org.junit.jupiter:jupiter-engine:5.10.0"
-    testImplementation "io.mockk:mockk:1.13.9"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3"
-    androidTestImplementation "androidx.test.ext:junit:1.1.5"
-    androidTestImplementation "androidx.test.espresso:espresso-core:3.5.1"
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:2024.05.00"
-    debugImplementation "androidx.compose.ui:ui-tooling:2024.05.00"
-    debugImplementation "androidx.compose.ui:ui-test-manifest:2024.05.00"
+    testImplementation libs.junit
+    androidTestImplementation libs.androidx.test.ext.junit
+    androidTestImplementation libs.espresso.core
+    androidTestImplementation platform(libs.compose.bom)
+    androidTestImplementation libs.compose.ui.test.junit4
+    debugImplementation libs.compose.ui.tooling
+    debugImplementation libs.compose.ui.test.manifest
 }

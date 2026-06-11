@@ -4,7 +4,8 @@ A simple Android application that allows users to take a photo and send it via e
 
 ## Overview
 
-OMS emphasizes modularity, clean code, and modern Android best practices to enable AI agent collaboration.
+OMS emphasizes clean code, modern Android best practices and above all,
+modularity to enable AI agent collaboration.
 
 ## Features
 
@@ -26,11 +27,11 @@ OMS emphasizes modularity, clean code, and modern Android best practices to enab
 
 ## Building the App
 
-See [BUILD.md](BUILD.md) for detailed build instructions.
+Run `gradle build`.
 
 ## Testing
 
-Unit tests and instrumentation tests are included. See [BUILD.md](BUILD.md) for how to run tests.
+Use gradle.
 
 ## License
 
